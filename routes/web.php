@@ -7,19 +7,17 @@ Route::get('/', function () {
     $kasiski = new Kasiski();
     // return $kasiski->iterateString()->getResult();
 
-    // return $kasiski->getStringPositions('OSJB');
+    $positions = $kasiski->getStringPositions('EYY');
+    $string = $kasiski->transposeString($positions);
+    $gcd = $kasiski->getGCD();
 
-    // $transposed = $kasiski->transposeString(4);
-
-    // print_r($transposed);
-
-    $string = $kasiski->transposeString(4);
-    $gcd = 4;
     return view('welcome', compact('string', 'gcd'));
 });
 
 Route::get('ioc', function () {
-    $ioc = new IndexOfCoincidence("VGOBFZPOBJRQIPFVOABHGUSWCBQOSRGBCOHHHHJOMVFCOGBHOFPZRVGWFFSSGSCFCFKMZBOOAGGFACSCOKAGSCFRRHCSSOHHHJESJZFDSFOFBCZIWSMHBGHBWWZVSVSZOSVQFQBFGQKVFZKSPOFTGCSSSSMSCTGWFZSJSWFWHIAMVORVZJSFVZOBUVSSSBQWWVHQBOBWZOBSWOUQSSQDCSCSCCBRMBGAHCWWCAHCNGSMHOAFSVQMCPVOHBQMCPVVRFGBBUTHWQZFRRZHOICHOFPIVGFWGSSSOUHCTM");
+    $string = "EDELLMELTNANKLZTPRCRNNEZCYEPPEZYWSLLPYSRQWMTQCLETPFLZHCKSLLPZXOOSHLYCCZSWPCYPEPTLWXPZLEPLFYDPYEPXTWXEPOTENLTTDPTLWSPDCWEAPEPVZEWDWMESCDPZJPENWPPEWYQHPSSLTNTLYYTLLLTXRPZZAWANZXPMYEPETDWDZOYPEWVCSLXTSVNTJDPDOESLRTYLWDGWEWDNLLNEDFRCPLSDZDY";
+
+    $ioc = new IndexOfCoincidence($string);
 
     // return $ioc->calculateIndex();
     return $ioc->getChiSquare();

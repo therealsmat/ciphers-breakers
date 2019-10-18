@@ -4,10 +4,6 @@ namespace App;
 
 class IndexOfCoincidence
 {
-    // find unique characters
-    // find characters having frequency greater than one
-    // compute IC
-
     public $string;
 
     private $stringLength;
@@ -25,7 +21,7 @@ class IndexOfCoincidence
 
     public function grabUniqueChars()
     {
-        return $unique = array_unique(str_split($this->string));
+        return array_unique(str_split($this->string));
     }
 
     private function getCharsCount($unique = null)
@@ -68,7 +64,21 @@ class IndexOfCoincidence
             $chars = $this->getCharsCount();
             $result[] = $chiSquare->findChiSquare($this->string, $chars, $x);
         }
-        return $result;
+        $bestKey[] = $this->getBestKey($result);
+        return $bestKey;
+    }
+
+    private function getBestKey($keyset)
+    {
+        $bestKey = $keyset[0];
+        foreach ($keyset as $value) {
+            if ($bestKey['chi_value'] > $value['chi_value']) {
+                $bestKey['chi_value'] = $value['chi_value'];
+                $bestKey['string'] = $value['string'];
+                $bestKey['key'] = $value['key'];
+            }
+        }
+        return $bestKey;
     }
 
     private function getAppropriateString($string, $index)
