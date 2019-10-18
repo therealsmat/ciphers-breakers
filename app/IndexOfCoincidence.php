@@ -8,10 +8,11 @@ class IndexOfCoincidence
 
     private $stringLength;
 
-    public function __construct($string)
+    public function setString($string)
     {
         $this->string = $string;
         $this->getStringLength();
+        return $this;
     }
 
     public function getStringLength()
