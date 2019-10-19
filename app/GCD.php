@@ -27,8 +27,8 @@ class GCD
 
     public function gcd($one, $two)
     {
-        $gcd = gmp_gcd($one, $two);
-        return gmp_strval($gcd);
+        $gcd = \gmp_gcd($one, $two);
+        return \gmp_strval($gcd);
     }
 
     public function isPrime($number)
