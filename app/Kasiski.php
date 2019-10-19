@@ -64,15 +64,20 @@ class Kasiski
     /**
      * Iterate through the string
      */
-    public function iterateString()
+    public function iterateString($needleLength = null)
     {
+        if ($needleLength) {
+            $this->needleLength = $needleLength;
+        }
         $arr_len = count($this->strArray);
         for ($x = 0; $x < $arr_len; $x++) {
             $string = $this->selectStrings($x, $arr_len);
 
             if ($string) {
                 $this->substrCount = substr_count($this->string, $string);
-                $this->strSearchResults[$string] = $this->substrCount;
+                if ($this->substrCount >= 3) {
+                    $this->strSearchResults[$string] = $this->substrCount;
+                }
             }
         }
 
@@ -189,9 +194,9 @@ class Kasiski
     /**
      * Extract the plain text
      */
-    public function getPlainText()
+    public function getPlainText($keys = null)
     {
-        $keys = $this->extractBestKeys();
+        $keys = $keys ?? $this->extractBestKeys();
         $strArray = $this->strArray;
         $detectedString = [];
         $x = 0;
