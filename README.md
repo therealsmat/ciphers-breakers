@@ -15,7 +15,6 @@ Composer, PHP7+ is required to run this program.
   ```php
     $results = $kasiski->iterateString()->getResult();
   ```
-  You should get a response like this;
   ![](https://tosinsoremekun.s3.eu-central-1.amazonaws.com/Screen+Shot+2019-10-18+at+9.02.19+PM.png)
 
 Clearly, `EYY` is the most occuring substring in the cipher text.
@@ -25,8 +24,54 @@ Clearly, `EYY` is the most occuring substring in the cipher text.
     $positions = $kasiski->getStringPositions('EYY');
   ```
 
-- Get the GCD of the difference in positions. The GCD is the encryption key length. Then, transpose the text into strings of the lenght of GCD
+- Get the GCD of the difference in positions.
   ```php
-    $string = $kasiski->transposeString($positions);
-    $gcd = $kasiski->getGCD();
+    $gcd = $kasiski->getGCD($positions);
   ```
+  The positions parameter is optional, if you have passed it as a parameter to any other method in the class.
+<br/>
+
+- Get the transposed string.
+  ```php
+    $gcd = $kasiski->transposeString($positions);
+  ```
+  The positions parameter is optional, if you have passed it as a parameter to any other method in the class.
+
+<br/>
+#### Getting our decryption keys;
+
+- To get the raw values for decrytion keys,
+  ```php
+    $keys = $kasiski->getBestKeys();
+  ```
+<br/>
+
+- To get the string values for decrytion keys,
+  ```php
+    $keys = $kasiski->extractBestKeys();
+  ```
+<br/>
+
+- To get the plain text,
+  ```php
+    $plainText = $kasiski->getPlainText();
+  ```
+<br/>
+
+#### Putting it all together with an example
+```php
+$string = "GVUCRGYDHOJSBBIKFFUMNZBOQPOZYOJYNBTKFJYFVRBINQJOQIFYAPOMBFJOMVQFROSYZAEXNBTSAHUBRGJSAUKXQSHVLWDQYCWSPBEDVQUDUOJDUSIYYRYOEGQBRBEDZCJSIOJOQHEBRHHONHZEFHEBRJUXZOYXYMRIGVUSEFQDVCDKYOICRGIWRBJYSHXOQODQRFIYSPQDGZUKARRIGVUSEGUVSWDDRFUCGFQDUSHDUSONVGSYISHKFCKXQFUKFCDDBFKXNKQIOMHONZYJVBWDUOJGUOJSGAQURGIOAGUPBFJRRAJYQCTOCSDNFCDGUOJSGKYVYAQURGUXFSVYECJRRFIDBREKARJRNHQVYCVDUSEDUSHCPODXBHYMRHXSFHEYRJUXNEKSGSRBNJUCBZTSRFCKLDHOSSHDBFKXEOJRRFJRNBXOECYMNZBIOIJZBWDDYSICYMTSRHHIVBWDBGJOZHXOBBSYZWDQGWTONZBLLVYWFSBPGVKCJSSYHZTSZOWSASMSGVEEGQEXGFQNVQJSBBQMVFSEZGJKAQUSAKXSPVQXNFCINZBYSKXYFSCOZPUBFOHOOFQFRTBORGQDGCFCCSUNOSVYESJRRSDOZMCKXSIKZCLOVTJRRGEVQWUBFFUKYZOKESRBNJUDUSDDUWICHFUVLWIXGHXOBIJMBAUKAMEPGVUWJODDRRUKPVMYHZTRNJUZESVOEFUNGVQDNZBCGODNNBTPVUXDJVQDJSXKISXOESJRRBYCNQQCRWDGUWSRGVUSAHUBNQJSBBEPZODIVBTSIWTENZBIEOJSBBQVQSSSFWEXZOASAUFBBQUCFSIYASFBBQUCFDUBFCBNVSHZECTEPSIKACKDPCCOVBJOARUNOMDYBBUWBGJKEAYOFHHIGCQFBWTDUWIZECRVRAZEFHQCPCHDRNTSQGYXPSJRRMSKAHKCHOBVLAQURFUDESQDCVOCVQQVYMYWCCICVPBOGVUIZOAOVHUMBBEWVQQVYMYWCCICVPBOGVUIFVEYGRUCRFJOEGJRRBIDNBTSAUQXQTYQUHYXTWIONQXCBZTSRFISARYFVRKKYZOBNHYYAOBMBIHCRCVKPHYYAOVDRFQVYPUMNIIOGVUMBGJYSFKXAWDQVGIEESJYOSQDYSQCGOIRVUXKFHXOPCIDBTIDNMYXT";
+
+$kasiski = new Kasiski($string);
+
+//$strings = $kasiski->iterateString()->getResult();
+
+$positions = $kasiski->getStringPositions('GVU');
+
+// $string = $kasiski->transposeString($positions);
+// $gcd = $kasiski->getGCD();
+// $string = $kasiski->getBestKeys();
+// $gcd = $kasiski->extractBestKeys();
+
+return $kasiski->getPlainText();
+```

@@ -127,9 +127,11 @@ class Kasiski
     /**
      * Calculate the GCD of the difference in positions
      */
-    public function getGCD()
+    public function getGCD($positions = null)
     {
-        return (new GCD($this->positions))->compute();
+        $positions = $positions ?? $this->positions;
+
+        return (new GCD($positions))->compute();
     }
 
     /** 
